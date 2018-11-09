@@ -1,4 +1,4 @@
-﻿@model DotNetStackUnderFlow.Entities.Question
+﻿@model DotNetStackUnderFlow.Entities.Response
 
 @{
     ViewData["Title"] = "Details";
@@ -7,9 +7,15 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Question</h4>
+    <h4>Response</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuestionId)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
@@ -23,6 +29,12 @@
             @Html.DisplayFor(model => model.Body)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.IsSolution)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsSolution)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.UpVotes)
         </dt>
         <dd>
@@ -34,20 +46,13 @@
         <dd>
             @Html.DisplayFor(model => model.DownVotes)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
     </dl>
 </div>
-
 <div>
-    <h1>Responses</h1>
-    @foreach (var response in Model.Responses)
+    <h1>Comments</h1>
+    @foreach (var comment in Model.Comments)
     {
-        <p>@Html.DisplayFor(modelItem => response.Title)</p>
+        <p>@Html.DisplayFor(modelItem => comment.Body)</p>
     }
 </div>
 <div>

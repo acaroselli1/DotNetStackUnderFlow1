@@ -7,28 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DotNetStackUnderFlow.Entities;
 using DotNetStackUnderFlow1.Data;
-using Microsoft.AspNetCore.Identity;
 
 namespace DotNetStackUnderFlow1.Web.Controllers
 {
-    public class QuestionsController : Controller
+    public class CommentsController : Controller
     {
-        private readonly UserManager<Microsoft.AspNetCore.Identity.IdentityUser> _um;
         private readonly ApplicationDbContext _context;
 
-        public QuestionsController(ApplicationDbContext context, UserManager<IdentityUser> um)
+        public CommentsController(ApplicationDbContext context)
         {
-            _um = um;
             _context = context;
         }
 
-        // GET: Questions
+        // GET: Comments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Questions.ToListAsync());
+            return View(await _context.Comments.ToListAsync());
         }
 
-        // GET: Questions/Details/5
+        // GET: Comments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,45 +33,39 @@ namespace DotNetStackUnderFlow1.Web.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions
+            var comment = await _context.Comments
                 .FirstOrDefaultAsync(m => m.Id == id);
-
-            question.Responses = _context.Responses.Where(response => response.Id == id).ToList();
-
-            if (question == null)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return View(question);
+            return View(comment);
         }
 
-        // GET: Questions/Create
+        // GET: Comments/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Questions/Create
+        // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Body,UpVotes,DownVotes")] Question question)
+        public async Task<IActionResult> Create([Bind("Id,ResponseId,Body")] Comment comment)
         {
-            var user = _um.GetUserAsync(HttpContext.User).Result;
-            question.UserId = user.Id;
-
             if (ModelState.IsValid)
             {
-                _context.Add(question);
+                _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(question);
+            return View(comment);
         }
 
-        // GET: Questions/Edit/5
+        // GET: Comments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,22 +73,22 @@ namespace DotNetStackUnderFlow1.Web.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions.FindAsync(id);
-            if (question == null)
+            var comment = await _context.Comments.FindAsync(id);
+            if (comment == null)
             {
                 return NotFound();
             }
-            return View(question);
+            return View(comment);
         }
 
-        // POST: Questions/Edit/5
+        // POST: Comments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,UpVotes,DownVotes,UserId")] Question question)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ResponseId,Body")] Comment comment)
         {
-            if (id != question.Id)
+            if (id != comment.Id)
             {
                 return NotFound();
             }
@@ -106,12 +97,12 @@ namespace DotNetStackUnderFlow1.Web.Controllers
             {
                 try
                 {
-                    _context.Update(question);
+                    _context.Update(comment);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuestionExists(question.Id))
+                    if (!CommentExists(comment.Id))
                     {
                         return NotFound();
                     }
@@ -122,10 +113,10 @@ namespace DotNetStackUnderFlow1.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(question);
+            return View(comment);
         }
 
-        // GET: Questions/Delete/5
+        // GET: Comments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,30 +124,30 @@ namespace DotNetStackUnderFlow1.Web.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions
+            var comment = await _context.Comments
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (question == null)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return View(question);
+            return View(comment);
         }
 
-        // POST: Questions/Delete/5
+        // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var question = await _context.Questions.FindAsync(id);
-            _context.Questions.Remove(question);
+            var comment = await _context.Comments.FindAsync(id);
+            _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool QuestionExists(int id)
+        private bool CommentExists(int id)
         {
-            return _context.Questions.Any(e => e.Id == id);
+            return _context.Comments.Any(e => e.Id == id);
         }
     }
 }

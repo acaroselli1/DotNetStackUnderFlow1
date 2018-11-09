@@ -1,10 +1,10 @@
-﻿@model IEnumerable<DotNetStackUnderFlow.Entities.Question>
+﻿@model IEnumerable<DotNetStackUnderFlow.Entities.Response>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Questions</h2>
+<h2>Responses</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,19 +13,22 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.QuestionId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Body)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.IsSolution)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.UpVotes)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DownVotes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
             </th>
             <th></th>
         </tr>
@@ -34,19 +37,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.QuestionId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Body)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.IsSolution)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.UpVotes)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DownVotes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -7,28 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DotNetStackUnderFlow.Entities;
 using DotNetStackUnderFlow1.Data;
-using Microsoft.AspNetCore.Identity;
 
 namespace DotNetStackUnderFlow1.Web.Controllers
 {
-    public class QuestionsController : Controller
+    public class ResponsesController : Controller
     {
-        private readonly UserManager<Microsoft.AspNetCore.Identity.IdentityUser> _um;
         private readonly ApplicationDbContext _context;
 
-        public QuestionsController(ApplicationDbContext context, UserManager<IdentityUser> um)
+        public ResponsesController(ApplicationDbContext context)
         {
-            _um = um;
             _context = context;
         }
 
-        // GET: Questions
+        // GET: Responses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Questions.ToListAsync());
+            return View(await _context.Responses.ToListAsync());
         }
 
-        // GET: Questions/Details/5
+        // GET: Responses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,45 +33,42 @@ namespace DotNetStackUnderFlow1.Web.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions
+            var response = await _context.Responses
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            question.Responses = _context.Responses.Where(response => response.Id == id).ToList();
+            response.Comments = _context.Comments.Where(comment => comment.Id == id).ToList();
 
-            if (question == null)
+            if (response == null)
             {
                 return NotFound();
             }
 
-            return View(question);
+            return View(response);
         }
 
-        // GET: Questions/Create
+        // GET: Responses/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Questions/Create
+        // POST: Responses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Body,UpVotes,DownVotes")] Question question)
+        public async Task<IActionResult> Create([Bind("Id,QuestionId,Title,Body,IsSolution,UpVotes,DownVotes")] Response response)
         {
-            var user = _um.GetUserAsync(HttpContext.User).Result;
-            question.UserId = user.Id;
-
             if (ModelState.IsValid)
             {
-                _context.Add(question);
+                _context.Add(response);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(question);
+            return View(response);
         }
 
-        // GET: Questions/Edit/5
+        // GET: Responses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,22 +76,22 @@ namespace DotNetStackUnderFlow1.Web.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions.FindAsync(id);
-            if (question == null)
+            var response = await _context.Responses.FindAsync(id);
+            if (response == null)
             {
                 return NotFound();
             }
-            return View(question);
+            return View(response);
         }
 
-        // POST: Questions/Edit/5
+        // POST: Responses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,UpVotes,DownVotes,UserId")] Question question)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,QuestionId,Title,Body,IsSolution,UpVotes,DownVotes")] Response response)
         {
-            if (id != question.Id)
+            if (id != response.Id)
             {
                 return NotFound();
             }
@@ -106,12 +100,12 @@ namespace DotNetStackUnderFlow1.Web.Controllers
             {
                 try
                 {
-                    _context.Update(question);
+                    _context.Update(response);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuestionExists(question.Id))
+                    if (!ResponseExists(response.Id))
                     {
                         return NotFound();
                     }
@@ -122,10 +116,10 @@ namespace DotNetStackUnderFlow1.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(question);
+            return View(response);
         }
 
-        // GET: Questions/Delete/5
+        // GET: Responses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,30 +127,30 @@ namespace DotNetStackUnderFlow1.Web.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions
+            var response = await _context.Responses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (question == null)
+            if (response == null)
             {
                 return NotFound();
             }
 
-            return View(question);
+            return View(response);
         }
 
-        // POST: Questions/Delete/5
+        // POST: Responses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var question = await _context.Questions.FindAsync(id);
-            _context.Questions.Remove(question);
+            var response = await _context.Responses.FindAsync(id);
+            _context.Responses.Remove(response);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool QuestionExists(int id)
+        private bool ResponseExists(int id)
         {
-            return _context.Questions.Any(e => e.Id == id);
+            return _context.Responses.Any(e => e.Id == id);
         }
     }
 }

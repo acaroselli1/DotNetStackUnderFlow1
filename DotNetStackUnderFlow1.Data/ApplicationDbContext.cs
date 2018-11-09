@@ -11,6 +11,11 @@ namespace DotNetStackUnderFlow1.Data
     {
         public DbSet<Question> Questions { get; set; }
 
+        public DbSet<Response> Responses { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

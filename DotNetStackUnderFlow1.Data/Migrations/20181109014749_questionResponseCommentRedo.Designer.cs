@@ -4,14 +4,16 @@ using DotNetStackUnderFlow1.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DotNetStackUnderFlow1.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181109014749_questionResponseCommentRedo")]
+    partial class questionResponseCommentRedo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,8 +70,6 @@ namespace DotNetStackUnderFlow1.Data.Migrations
                     b.Property<int>("DownVotes");
 
                     b.Property<bool>("IsSolution");
-
-                    b.Property<int>("QuestionId");
 
                     b.Property<string>("Title");
 
