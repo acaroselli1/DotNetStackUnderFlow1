@@ -39,7 +39,7 @@ namespace DotNetStackUnderFlow1.Web.Controllers
             var question = await _context.Questions
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            question.Responses = _context.Responses.Where(response => response.Id == id).ToList();
+            question.Responses = _context.Responses.Where(response => response.QuestionId == id).ToList();
 
             if (question == null)
             {

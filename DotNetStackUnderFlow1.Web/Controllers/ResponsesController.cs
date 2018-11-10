@@ -36,7 +36,7 @@ namespace DotNetStackUnderFlow1.Web.Controllers
             var response = await _context.Responses
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            response.Comments = _context.Comments.Where(comment => comment.Id == id).ToList();
+            response.Comments = _context.Comments.Where(comment => comment.ResponseId == id).ToList();
 
             if (response == null)
             {
