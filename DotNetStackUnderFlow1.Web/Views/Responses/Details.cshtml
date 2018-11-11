@@ -49,7 +49,8 @@
     </dl>
 </div>
 <div>
-    <h1>Comments</h1>
+    <p style="font-weight:bold">Comments</p>
+    <hr/>
     @foreach (var comment in Model.Comments)
     {
         <p>@Html.DisplayFor(modelItem => comment.Body)</p>

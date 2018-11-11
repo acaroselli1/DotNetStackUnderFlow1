@@ -15,4 +15,19 @@
     <ProjectReference Include="..\DotNetStackUnderFlow1.Data\DotNetStackUnderFlow1.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Questions\CreateResponse.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Questions\DownVote.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Questions\UpVote.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Questions\Responses.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

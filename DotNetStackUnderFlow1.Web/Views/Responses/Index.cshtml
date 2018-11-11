@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.QuestionId)
             </th>
             <th>
@@ -30,12 +33,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.DownVotes)
             </th>
-            <th></th>
+
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.QuestionId)
             </td>
@@ -55,8 +61,22 @@
                 @Html.DisplayFor(modelItem => item.DownVotes)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                @using (Html.BeginForm("UpVote", "Response", FormMethod.Post))
+                {
+                    <input hidden value="@item.UpVotes++" name="id" />
+                    <button class="btn btn-info btn-xs" id="@item.Id" type="submit">UpVote</button>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("DownVote", "Response", FormMethod.Post))
+                {
+                    <input hidden value="@item.Id" name="id" />
+                    <button class="btn btn-danger btn-xs" id="@item.Id" type="submit">DownVote</button>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit (Option to Mark Response as Solution is Included in Page)</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">See Comments</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

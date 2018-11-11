@@ -1,22 +1,13 @@
-﻿@model DotNetStackUnderFlow.Entities.Question
+﻿@model DotNetStackUnderFlow.Entities.Response
 
-@{
-    ViewData["Title"] = "Create";
-}
-
-<h2>Create</h2>
-
-<h4>Question</h4>
+<h4>Add Comment</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="CreateResponse" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <input hidden readonly name="postId" value="@Model.QuestionId" />
             </div>
             <div class="form-group">
                 <label asp-for="Body" class="control-label"></label>
@@ -28,10 +19,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DotNetStackUnderFlow.Entities;
 using DotNetStackUnderFlow1.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotNetStackUnderFlow1.Web.Controllers
 {
@@ -26,6 +27,7 @@ namespace DotNetStackUnderFlow1.Web.Controllers
         }
 
         // GET: Comments/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +46,7 @@ namespace DotNetStackUnderFlow1.Web.Controllers
         }
 
         // GET: Comments/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -52,6 +55,7 @@ namespace DotNetStackUnderFlow1.Web.Controllers
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ResponseId,Body")] Comment comment)
@@ -66,6 +70,7 @@ namespace DotNetStackUnderFlow1.Web.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +89,7 @@ namespace DotNetStackUnderFlow1.Web.Controllers
         // POST: Comments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ResponseId,Body")] Comment comment)
@@ -117,6 +123,7 @@ namespace DotNetStackUnderFlow1.Web.Controllers
         }
 
         // GET: Comments/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +142,7 @@ namespace DotNetStackUnderFlow1.Web.Controllers
         }
 
         // POST: Comments/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
