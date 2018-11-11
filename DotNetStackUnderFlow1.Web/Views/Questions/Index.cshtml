@@ -55,8 +55,9 @@
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>
             <td>
-                <button><a asp-action="UpVote" asp-route-id="@item.Id">UpVote</a></button> |
-                <button><a asp-action="DownVote" asp-route-id="@item.Id">DownVote</a></button> |
+            <td>
+                <button class="btn btn-info btn-xs"><a asp-action="UpVote" asp-route-id="@item.Id">UpVote</a></button> |
+                <button class="btn btn-danger btn-xs"><a asp-action="DownVote" asp-route-id="@item.Id">DownVote</a></button> |
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">See Responses</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

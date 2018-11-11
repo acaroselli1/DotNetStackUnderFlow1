@@ -9,6 +9,8 @@
 <div>
     <h4>Response</h4>
     <hr />
+
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.QuestionId)
@@ -50,11 +52,26 @@
 </div>
 <div>
     <p style="font-weight:bold">Comments</p>
-    <hr/>
-    @foreach (var comment in Model.Comments)
-    {
-        <p>@Html.DisplayFor(modelItem => comment.Body)</p>
-    }
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Body
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var comment in Model.Comments)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => comment.Body)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

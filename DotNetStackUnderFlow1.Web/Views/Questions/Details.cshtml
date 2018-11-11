@@ -41,28 +41,59 @@
         <dd>
             @Html.DisplayFor(model => model.UserId)
         </dd>
-      
+
     </dl>
 </div>
 
 <div>
     <p style="font-weight:bold">Responses</p>
-    <hr/>
-    @foreach (var response in Model.Responses)
-    {
-        <span>@Html.DisplayFor(modelItem => response.Body) -</span>
-        <span>@Html.DisplayFor(modelItem => response.Title) -</span>
-        <span>@Html.DisplayFor(modelItem => response.UpVotes) - </span>
-        <span>@Html.DisplayFor(modelItem => response.DownVotes)</span>
-    }
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Body
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    UpVotes
+                </th>
+                <th>
+                    DownVotes
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var response in Model.Responses)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => response.Body)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => response.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => response.UpVotes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => response.DownVotes)
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 @*<div class="comments">
 
-    <partial name="createresponse" model="new response(){ questionid = model.id }" />
+        <partial name="createresponse" model="new response(){ questionid = model.id }" />
 
-    <partial name="responses" model="model.responses" />
+        <partial name="responses" model="model.responses" />
 
-</div>*@
+    </div>*@
 
 
 <div>

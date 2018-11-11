@@ -63,7 +63,7 @@
             <td>
                 @using (Html.BeginForm("UpVote", "Response", FormMethod.Post))
                 {
-                    <input hidden value="@item.UpVotes++" name="id" />
+                    <input hidden value="@item.Id" name="id" />
                     <button class="btn btn-info btn-xs" id="@item.Id" type="submit">UpVote</button>
                 }
             </td>
