@@ -5,6 +5,16 @@
 }
 
 <h2>Responses</h2>
+<script>
+    function upVote(upVoteFieldId) {
+        document.getElementById(upVoteFieldId).value++;
+        document.getElementById(upVoteFieldId + "upVoteButton").disabled = true;
+    }
+    function downVote(questionId) {
+        document.getElementById(questionId + "down").value++;
+        document.getElementById(questionId + "downVoteButton").disabled = true;
+    }
+ </script>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -55,29 +65,33 @@
                 @Html.DisplayFor(modelItem => item.IsSolution)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UpVotes)
+                <input readonly id="@item.Id" value="@item.UpVotes" />
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DownVotes)
+                <input readonly id="@($"{item.Id}down")" value="@item.DownVotes" />
             </td>
             <td>
-                @using (Html.BeginForm("UpVote", "Response", FormMethod.Post))
-                {
-                    <input hidden value="@item.Id" name="id" />
-                    <button class="btn btn-info btn-xs" id="@item.Id" type="submit">UpVote</button>
-                }
-            </td>
-            <td>
-                @using (Html.BeginForm("DownVote", "Response", FormMethod.Post))
-                {
-                    <input hidden value="@item.Id" name="id" />
-                    <button class="btn btn-danger btn-xs" id="@item.Id" type="submit">DownVote</button>
-                }
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit (Option to Mark Response as Solution is Included in Page)</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">See Comments</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <button onclick="upVote(@item.Id)" class="btn btn-info btn-xs" id="@($"{item.Id}upVoteButton")" type="submit"> UpVote</button>
+            <button onclick="downVote(@item.Id)" class="btn btn-danger btn-xs" id="@($"{item.Id}downVoteButton")" type="submit"> DownVote</button>
+
+            @*<td>
+            @using (Html.BeginForm("UpVote", "Response", FormMethod.Post))
+            {
+                <input hidden value="@item.Id" name="id" />
+                <button class="btn btn-info btn-xs" id="@item.Id" type="submit">UpVote</button>
+            }
+        </td>
+        <td>
+            @using (Html.BeginForm("DownVote", "Response", FormMethod.Post))
+            {
+                <input hidden value="@item.Id" name="id" />
+                <button class="btn btn-danger btn-xs" id="@item.Id" type="submit">DownVote</button>
+            }
+        </td>*@
+
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit (Option to Mark Response as Solution is Included in Page)</a> |
+            <a asp-action="Details" asp-route-id="@item.Id">See Comments</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

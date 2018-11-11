@@ -149,54 +149,20 @@ namespace DotNetStackUnderFlow1.Web.Controllers
             return View(question);
         }
 
-        // GET: Questions/Upvote/5
-        [Authorize]
-        public async Task<IActionResult> Upvote(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var question = await _context.Questions.FindAsync(id);
-            if (question == null)
-            {
-                return NotFound();
-            }
-            return View(question);
-        }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("UpVote")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upvote(int id, [Bind("Id,Title,Body,UpVotes,DownVotes,UserId")] Question question)
+        public async Task<IActionResult> Upvote([FromForm] Question question)
         {
-            if (id != question.Id)
-            {
-                return NotFound();
-            }
+            question.UpVotes++;
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(question);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!QuestionExists(question.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(question);
+            _context.Attach(question).Property("UpVotes");
+
+            await _context.SaveChangesAsync();
+
+            return View();
         }
 
         // GET: Questions/Upvote/5
