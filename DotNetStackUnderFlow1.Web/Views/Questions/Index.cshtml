@@ -57,22 +57,30 @@
                     @Html.DisplayFor(modelItem => item.Body)
                 </td>
                 <td>
-                    <input readonly id="@item.Id" value="@item.UpVotes" />
+                    @Html.DisplayFor(modelItem => item.UpVotes)
                 </td>
                 <td>
-                    <input readonly id="@($"{item.Id}down")" value="@item.DownVotes" />
+                    @Html.DisplayFor(modelItem => item.DownVotes)
                 </td>
+
+
+                @*<td>
+            <input readonly id="@item.Id" value="@item.UpVotes" />
+        </td>
+        <td>
+            <input type="hidden" readonly id="@($"{item.Id}down")" value="@item.DownVotes" />
+        </td>*@
                 <td>
                     @* @using (Html.BeginForm("UpVote", "Questions", FormMethod.Post))
             {
                 <input hidden value="@item.Id" name="id" />
                 <input hidden value="@item.UpVotes" name="upVotes" />*@
-                    <button onclick="upVote(@item.Id)" class="btn btn-info btn-xs" id="@($"{item.Id}upVoteButton")" type="submit"> UpVote</button>
+                    <button style="display:none" onclick="upVote(@item.Id)" class="btn btn-info btn-xs" id="@($"{item.Id}upVoteButton")" type="submit"> UpVote</button>
                     @*}*@
-                    <button onclick="downVote(@item.Id)" class="btn btn-danger btn-xs" id="@($"{item.Id}downVoteButton")" type="submit"> DownVote</button>
+                    <button style="display:none" onclick="downVote(@item.Id)" class="btn btn-danger btn-xs" id="@($"{item.Id}downVoteButton")" type="submit"> DownVote</button>
                     @*<button class="btn btn-info btn-xs"><a asp-action="UpVote" asp-route-id="@item.Id">UpVote</a></button> |
             <button class="btn btn-danger btn-xs"><a asp-action="DownVote" asp-route-id="@item.Id">DownVote</a></button> |*@
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Vote/Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">See Responses</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>

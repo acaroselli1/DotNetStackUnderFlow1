@@ -5,7 +5,18 @@
 }
 
 <h2>Edit</h2>
-
+<script>
+    function upVote() {
+        document.getElementById("upVote").value++;
+        alert("Thanks for voting!");
+        document.getElementById("hiddenSave").click();
+    }
+    function downVote() {
+        document.getElementById("downVote").value++;
+        alert("Thanks for voting!");
+        document.getElementById("hiddenSave").click();
+    }
+</script>
 <h4>Response</h4>
 <hr />
 <div class="row">
@@ -13,11 +24,6 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="QuestionId" class="control-label"></label>
-                <input asp-for="QuestionId" class="form-control" />
-                <span asp-validation-for="QuestionId" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -37,18 +43,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="UpVotes" class="control-label"></label>
-                <input asp-for="UpVotes" class="form-control" />
+                <input asp-for="UpVotes" class="form-control" id="upVote" readonly />
                 <span asp-validation-for="UpVotes" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DownVotes" class="control-label"></label>
-                <input asp-for="DownVotes" class="form-control" />
+                <input asp-for="DownVotes" class="form-control"id="downVote" readonly/>
                 <span asp-validation-for="DownVotes" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" id="hiddenSave" class="btn btn-default" />
             </div>
         </form>
+        <button onclick="upVote()" class="btn btn-info btn-lg"> UpVote</button>
+        <button onclick="downVote()" class="btn btn-danger btn-lg"> DownVote</button>
     </div>
 </div>
 

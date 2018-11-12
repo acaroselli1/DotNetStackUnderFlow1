@@ -65,14 +65,16 @@
                 @Html.DisplayFor(modelItem => item.IsSolution)
             </td>
             <td>
-                <input readonly id="@item.Id" value="@item.UpVotes" />
+                @Html.DisplayFor(modelItem => item.UpVotes)
+                @*<input readonly id="@item.Id" value="@item.UpVotes" />*@
             </td>
             <td>
-                <input readonly id="@($"{item.Id}down")" value="@item.DownVotes" />
+                @Html.DisplayFor(modelItem => item.DownVotes)
+                @*<input readonly id="@($"{item.Id}down")" value="@item.DownVotes" />*@
             </td>
             <td>
-            <button onclick="upVote(@item.Id)" class="btn btn-info btn-xs" id="@($"{item.Id}upVoteButton")" type="submit"> UpVote</button>
-            <button onclick="downVote(@item.Id)" class="btn btn-danger btn-xs" id="@($"{item.Id}downVoteButton")" type="submit"> DownVote</button>
+            @*<button onclick="upVote(@item.Id)" class="btn btn-info btn-xs" id="@($"{item.Id}upVoteButton")" type="submit"> UpVote</button>
+            <button onclick="downVote(@item.Id)" class="btn btn-danger btn-xs" id="@($"{item.Id}downVoteButton")" type="submit"> DownVote</button>*@
 
             @*<td>
             @using (Html.BeginForm("UpVote", "Response", FormMethod.Post))
@@ -89,7 +91,7 @@
             }
         </td>*@
 
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit (Option to Mark Response as Solution is Included in Page)</a> |
+            <a asp-action="Edit" asp-route-id="@item.Id">Vote/Mark As Solution/Edit</a> |
             <a asp-action="Details" asp-route-id="@item.Id">See Comments</a> |
             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
