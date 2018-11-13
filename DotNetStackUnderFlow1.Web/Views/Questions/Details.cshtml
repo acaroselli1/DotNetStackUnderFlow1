@@ -5,10 +5,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Question</h2>
 
 <div>
-    <h4>Question</h4>
+    <h4>Detais</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -46,7 +46,7 @@
 </div>
 
 <div>
-    <p style="font-weight:bold">Responses</p>
+    <h3 style="font-weight:bold">Responses</h3>
     <hr />
     <table class="table">
         <thead>
@@ -68,21 +68,26 @@
         <tbody>
             @foreach (var response in Model.Responses)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => response.Body)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => response.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => response.UpVotes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => response.DownVotes)
-
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => response.Body)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => response.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => response.UpVotes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => response.DownVotes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => response.IsSolution)
+                </td>
+                <td>
+                    <a href="/Responses/Edit/@response.Id">Vote/Mark As Solution/Edit</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

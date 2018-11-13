@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DotNetStackUnderFlow.Entities;
 using DotNetStackUnderFlow1.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Routing;
 
 namespace DotNetStackUnderFlow1.Web.Controllers
 {
@@ -97,6 +98,10 @@ namespace DotNetStackUnderFlow1.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,QuestionId,Title,Body,IsSolution,UpVotes,DownVotes")] Response response)
         {
+            var routeValues = new RouteValueDictionary {
+               { "id", response.QuestionId },
+            };
+            
             if (id != response.Id)
             {
                 return NotFound();
@@ -120,7 +125,8 @@ namespace DotNetStackUnderFlow1.Web.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+              
+                return RedirectToAction("Details","Questions",routeValues);
             }
             return View(response);
         }
